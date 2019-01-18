@@ -105,18 +105,43 @@ public class SinglyLinkedList<E> implements List<E> {
         }
         if(head.next == null){
             head = null;
-            size--;
         }
         Node<E> secondLast = head;
         while(secondLast.next.next != null){
             secondLast = secondLast.next;
         }
+        Node<E> temp = secondLast.getNext();
         secondLast.next = null;
-        return secondLast.getValue();
+        size--;
+        return tail.getValue();
     }
 
     @Override
     public void insert(E element, int index) {
+        Node<E> newNode = new Node(element, null);
+        if(element != null){
+            if(head == null && index !=0){}
+            else if(head == null && index == 0){
+                head = newNode;
+                size++;
+            }
+            if(index == 0){
+                newNode.next = head;
+                head = newNode;
+                size++;
+            }
+            Node<E> current = head;
+            Node<E> prev = null;
+            int i = 0;
+            while(i < index && current!=null){
+                prev = current;
+                current = current.next;
+                i++;
+            }
+            newNode.next = current;
+            prev.next = newNode;
+            size++;
+        }
 
     }
 

@@ -58,24 +58,30 @@ public class SinglyLinkedList<E> implements List<E> {
 // add a node to the end of the list
     @Override
     public void addLast(E element) {
-        Node<E> newNode = new Node<>(element, null);
-        if(isEmpty()){
-            head = newNode;
+        if(element != null){
+            Node<E> newNode = new Node<>(element, null);
+            if(isEmpty()){
+                head = newNode;
+
+            }
+            else{
+                tail.setNext((newNode));
+            }
+            tail = newNode;
+            size++;
         }
-        else{
-            tail.setNext((newNode));
-        }
-        tail = newNode;
-        size++;
+
     }
 // add a node to the start of the list
     @Override
     public void addFirst(E element) {
-        head = new Node<>(element, head);
-        if(size == 0){
-            tail = head;
+        if(element != null){
+            head = new Node<>(element, head);
+            if(size == 0){
+                tail = head;
+                size++;
+            }
         }
-        size++;
     }
 
     @Override
@@ -116,7 +122,29 @@ public class SinglyLinkedList<E> implements List<E> {
 
     @Override
     public E remove(int index) {
+    if(head == null){
         return null;
+    }
+    Node<E> temp = head;
+    if(index == 0){
+        head = temp.next;
+        temp = null;
+        return temp.getValue();
+    }
+    if(index < 0){
+        return null;
+    }
+    for(int i=0; temp!=null && i<index-1; i++){
+        temp = temp.next;
+    }
+    if(temp==null || temp.next == null){
+        return null;
+    }
+    Node<E> next = temp.next.next;
+    Node<E> del = temp.getNext();
+    temp.next = next;
+    size--;
+    return del.getValue();
     }
 
     @Override
@@ -145,7 +173,11 @@ public class SinglyLinkedList<E> implements List<E> {
 
     @Override
     public void printList() {
-
+        Node<E> current = head;
+        while(current != null){
+            System.out.println(current.getValue());
+            current = current.next;
+        }
     }
 
 }

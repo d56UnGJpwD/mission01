@@ -80,13 +80,13 @@ public class SinglyLinkedList<E> implements List<E> {
             if(size == 0){
                 tail = temp;
                 head = temp;
-                size++;
             }
             else{
                 temp.next = head;
                 head = temp;
-                size++;
+
             }
+            size++;
         }
     }
 // removes the head node or the first node
@@ -97,10 +97,10 @@ public class SinglyLinkedList<E> implements List<E> {
         }
         E firstVal = head.getValue();
         head = head.getNext();
-        size--;
         if(size == 0){
             tail = null;
         }
+        size--;
         return firstVal;
     }
 // removes the tail node or last node
@@ -111,6 +111,7 @@ public class SinglyLinkedList<E> implements List<E> {
         }
         if(head.next == null){
             head = null;
+            size--;
         }
         Node<E> secondLast = head;
         while(secondLast.next.next != null){
@@ -153,9 +154,10 @@ public class SinglyLinkedList<E> implements List<E> {
 // removes a node at the specified index
     @Override
     public E remove(int index) {
-        if (index >= size){
+        if(index >= size){
             return null;
         }
+
     if(head == null){
         return null;
     }

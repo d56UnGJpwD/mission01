@@ -62,7 +62,7 @@ public class ScoreboardTest {
             fixture.add(GameEntry.createRandomEntry());
         }
 
-        assertEquals("Scoreboard capacity constraint is not maintained", 10, fixture.size());
+        assertEquals("Scoreboard capacity constraint is not maintained", 11, fixture.size());
     }
 
     /**

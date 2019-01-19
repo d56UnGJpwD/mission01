@@ -76,14 +76,20 @@ public class SinglyLinkedList<E> implements List<E> {
     @Override
     public void addFirst(E element) {
         if(element != null){
-            head = new Node<>(element, head);
+            Node<E> temp = new Node<>(element, head);
             if(size == 0){
-                tail = head;
+                tail = temp;
+                head = temp;
+                size++;
+            }
+            else{
+                temp.next = head;
+                head = temp;
                 size++;
             }
         }
     }
-
+// removes the head node or the first node
     @Override
     public E removeFirst() {
         if(isEmpty()){
@@ -97,7 +103,7 @@ public class SinglyLinkedList<E> implements List<E> {
         }
         return firstVal;
     }
-
+// removes the tail node or last node
     @Override
     public E removeLast() {
         if(head == null){
@@ -115,11 +121,11 @@ public class SinglyLinkedList<E> implements List<E> {
         size--;
         return tail.getValue();
     }
-
+// adds a node at the specified index
     @Override
     public void insert(E element, int index) {
         Node<E> newNode = new Node(element, null);
-        if(element != null){
+        if(element != null && index >= 0){
             if(head == null && index !=0){}
             else if(head == null && index == 0){
                 head = newNode;
@@ -144,9 +150,12 @@ public class SinglyLinkedList<E> implements List<E> {
         }
 
     }
-
+// removes a node at the specified index
     @Override
     public E remove(int index) {
+        if (index >= size){
+            return null;
+        }
     if(head == null){
         return null;
     }
@@ -171,7 +180,7 @@ public class SinglyLinkedList<E> implements List<E> {
     size--;
     return del.getValue();
     }
-
+// gets the index of a node
     @Override
     public E get(int index) {
         Node<E> current = head;
@@ -185,17 +194,17 @@ public class SinglyLinkedList<E> implements List<E> {
         }
         return null;
     }
-
+// returns size of list
     @Override
     public int size() {
         return size;
     }
-
+// checks if the list is empty
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
-
+// prints values of every node in the list
     @Override
     public void printList() {
         Node<E> current = head;
